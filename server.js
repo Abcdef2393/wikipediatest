@@ -34,7 +34,7 @@ app.post("/:id", async (req, res) => {
     const result = await searchWikipedia(input);
     queries[id] = result;
     res.send("recieved");
-    const check = { id, queries[id] };
+    const check = { id, result: queries[id] };
     console.log(check);
 });
 
@@ -43,7 +43,7 @@ app.get("/:id", async (req, res) => {
     // use this as the input (what is being sent)
     const id = req.params.id;
     res.send(queries[id]);
-    const check = { id, queries[id] };
+    const check = { id, result: queries[id] };
     console.log(check);
 });
 
