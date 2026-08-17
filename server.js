@@ -13,14 +13,21 @@ async function searchWikipedia(query) {
 
     const data = await response.json();
 
-    return data.extract;
+    let res = data.extract;
+
+    if (res === undefined) {
+    res = 404;
+    }
+
+    return res;
 }
 
+/*
 searchWikipedia("India").then(result => {
     console.log(result);
 });
+*/
 
-/*
 app.get("", async (req, res) => {
 
     // use this as the input (what is being sent)
@@ -29,7 +36,7 @@ app.get("", async (req, res) => {
     const result = await searchWikipedia(input);
     res.send(result);
 });
-*/
+
 
 
 
