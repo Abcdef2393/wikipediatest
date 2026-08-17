@@ -30,6 +30,7 @@ searchWikipedia("India").then(result => {
 */
 
 app.post("/:id", async (req, res) => {
+    console.log("POST recieved");
     const id = req.params.id;
     console.log(req.body);
     const input = req.body.input;
