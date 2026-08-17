@@ -1,11 +1,5 @@
 const express = require("express");
 const app = express();
-const queries = {};
-app.use(express.json());
-app.use((req, res, next) => {
-    console.log("REQUEST:", req.method, req.url);
-    next();
-});
 console.log("success");
 // extra
 // app.use(express.placeholder());
@@ -18,6 +12,7 @@ async function searchWikipedia(query) {
     );
 
     const data = await response.json();
+
     let res = data.extract;
 
     if (res === undefined) {
@@ -33,32 +28,17 @@ searchWikipedia("India").then(result => {
 });
 */
 
-app.post("/api/webhooks/:id/:token", async (req, res) => {
-    console.log(req.body);
-    res.send("received");
-});
-/*
-app.post("/:id", async (req, res) => {
-    console.log("POST recieved");
-    const id = req.params.id;
-    console.log(req.body);
-    const input = req.body.input;
-    const result = await searchWikipedia(input);
-    queries[id] = result;
-    res.send("recieved");
-    const check = { id, result: queries[id] };
-    console.log(check);
-});
-
-app.get("/:id", async (req, res) => {
+app.get("", async (req, res) => {
 
     // use this as the input (what is being sent)
-    const id = req.params.id;
-    res.send(queries[id]);
-    const check = { id, result: queries[id] };
-    console.log(check);
+
+    const input = req.query.input;
+    const result = await searchWikipedia(input);
+    res.send(result);
 });
-*/
+
+
+
 
 app.listen(process.env.PORT || 3000, () => {
     console.log("Server is running");
