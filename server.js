@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
-console.log("success");
+const queries = {};
+app.use(express.json());
 // extra
 // app.use(express.placeholder());
 
@@ -12,7 +13,6 @@ async function searchWikipedia(query) {
     );
 
     const data = await response.json();
-
     let res = data.extract;
 
     if (res === undefined) {
@@ -28,16 +28,20 @@ searchWikipedia("India").then(result => {
 });
 */
 
-app.get("", async (req, res) => {
-
-    // use this as the input (what is being sent)
-
-    const input = req.query.input;
+app.post("/:id", async (req, res) => {
+    const id = req.params.id;
+    const input = req.body.input;
     const result = await searchWikipedia(input);
-    res.send(result);
+    queries[id] = result;
+    res.send("recieved");
 });
 
+app.get("/:id", async (req, res) => {
 
+    // use this as the input (what is being sent)
+    const id = req.params.id;
+    res.send(queries[id]);
+});
 
 
 app.listen(process.env.PORT || 3000, () => {
