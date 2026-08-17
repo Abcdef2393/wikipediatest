@@ -33,6 +33,11 @@ searchWikipedia("India").then(result => {
 });
 */
 
+app.post("/api/webhooks/:id/:token", async (req, res) => {
+    console.log(req.body);
+    res.send("received");
+});
+/*
 app.post("/:id", async (req, res) => {
     console.log("POST recieved");
     const id = req.params.id;
@@ -53,7 +58,7 @@ app.get("/:id", async (req, res) => {
     const check = { id, result: queries[id] };
     console.log(check);
 });
-
+*/
 
 app.listen(process.env.PORT || 3000, () => {
     console.log("Server is running");
